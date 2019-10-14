@@ -25,28 +25,30 @@ class Api {
   }
 
 
-  static Future<bool> addGenre(Map<String,dynamic> genre) async {
-    Dio dio = Dio();
-        Map<String, String> headers = {
-          // HttpHeaders.contentTypeHeader: "application/json",
-          // HttpHeaders.authorizationHeader: token
-       "Content-type": "application/json",
-      "x-auth-token": token,
-      "accept": "application/json",
-    };
-    try {
-      var url = "https://fierce-earth-23127.herokuapp.com/api/genres";
-      //var client = http.Client();
-      final response = await dio.post(url,data: {"name":genre},options: Options(headers: headers));
-       print("Res $response");
-       if(response.statusCode < 200 || response.statusCode > 400 || json == null){
-         print(response.statusCode.toString());
-         
-       }
-      return response.data;
-     
-    } catch (e) {
-      return false;
+  static Future<bool> addGenre(String genre) async {
+    var url = "https://fierce-earth-23127.herokuapp.com/api/genres";
+    bool b;
+
+    final res = await Dio().post(
+      url,
+      data: {
+        "name":genre,
+      },
+      options: Options(
+        headers: {
+          "x-auth-token": token,
+          "Content-type": "application/json; charset=utf-8"
+        },
+      ),
+    );
+    print("Res ${res.data}");
+    if(res.statusCode == 200){
+      print(res.statusCode.toString());
+      b = true;
+    }else{
+      b = false;
     }
+
+    return b;
   }
 }

@@ -14,31 +14,32 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        body: FutureBuilder<Genre>(
-            future: _getGenres(),
-            builder: (context, snapshot) {
-              return ListView.builder(
-                itemCount: genres.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    child: Card(
-                      elevation: 10,
-                      
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Post()));
-                        },
-                        child: ListTile(
-                          title: Text(genres[index].genreName),
-                        ),
-                      ),
+      appBar: AppBar(),
+      body: FutureBuilder<Genre>(
+        future: _getGenres(),
+        builder: (context, snapshot) {
+          return ListView.builder(
+            itemCount: genres.length,
+            itemBuilder: (context, index) {
+              return Container(
+                child: Card(
+                  elevation: 10,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Post()));
+                    },
+                    child: ListTile(
+                      title: Text(genres[index].genreName),
                     ),
-                  );
-                },
+                  ),
+                ),
               );
-            }));
+            },
+          );
+        },
+      ),
+    );
   }
 
   initState() {
